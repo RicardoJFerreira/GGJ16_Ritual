@@ -9,6 +9,7 @@ public class CharacterTriggers : MonoBehaviour
     private Rigidbody2D _myRigidBody;
     private bool _canClimb = false;
 	private bool _isTouchingItem = false;
+	public bool _isTouchingCalderon = false;
 	ItemCollectionScript itemCollection;
 
 	public GameObject _pressEObject;
@@ -59,6 +60,21 @@ public class CharacterTriggers : MonoBehaviour
 			_pressEObject.SetActive (false);
 		}
 
+		if (_isTouchingCalderon) {
+
+			if (Input.GetButton ("UseItem1") && itemCollection.CanUseItem(0)) {
+				itemCollection.UseItem (0);
+			} else if (Input.GetButton ("UseItem2") && itemCollection.CanUseItem(1)) {
+				itemCollection.UseItem (1);
+			} else if (Input.GetButton ("UseItem3") && itemCollection.CanUseItem(2)) {
+				itemCollection.UseItem (2);
+			}else if(Input.GetButton ("UseItem4") && itemCollection.CanUseItem(3)) {
+				itemCollection.UseItem (3);
+			}
+		}
+
+
+
 
 	}
 
@@ -72,20 +88,22 @@ public class CharacterTriggers : MonoBehaviour
 			_isTouchingItem = true;
 			_touchingItem = collider.gameObject;
 
+		}else if (collider.gameObject.tag == "Calderon") {
+			_isTouchingCalderon = true;
 		}
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Ladder")
-        {
-            _canClimb = false;
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.Find("Platforms").GetComponent<Collider2D>(), true);
-            // _anim.SetBool("Climb", false);
-        }
-		else if (collider.gameObject.tag == "Item") {
+		if (collider.gameObject.tag == "Ladder") {
+			_canClimb = false;
+			Physics2D.IgnoreCollision (GetComponent<Collider2D> (), GameObject.Find ("Platforms").GetComponent<Collider2D> (), true);
+			// _anim.SetBool("Climb", false);
+		} else if (collider.gameObject.tag == "Item") {
 			_isTouchingItem = false;
 			_touchingItem = null;
+		} else if (collider.gameObject.tag == "Calderon") {
+			_isTouchingCalderon = false;
 		}
     }
 }
