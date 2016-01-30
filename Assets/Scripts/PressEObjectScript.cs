@@ -13,7 +13,7 @@ public class PressEObjectScript : MonoBehaviour {
 	void Start () {
 		goingUp = true;
 		downPosition = new Vector3 (0,67,0);
-		upPosition = new Vector3 (0,100,0);
+		upPosition = new Vector3 (0,80,0);
 	}
 	
 	// Update is called once per frame
