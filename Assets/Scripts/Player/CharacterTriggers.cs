@@ -23,21 +23,27 @@ public class CharacterTriggers : MonoBehaviour
         {
             int direction = h > 0 ? 1 : -1;
 	        _myRigidBody.isKinematic = true;
-	        transform.position = new Vector3(transform.position.x, transform.position.y + Time.deltaTime * direction * ladder_MaxSpeed,
-                                             transform.position.z ); 
+           // Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.Find("Platforms").GetComponent<Collider2D>(), true);
+            transform.position += new Vector3(0, Time.deltaTime * direction * ladder_MaxSpeed, 0 ); 
+	    }else if (h == 0 && _canClimb)
+	    {
+           // Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.Find("Platforms").GetComponent<Collider2D>(), true);
+            _myRigidBody.isKinematic = true;
 	    }
 	    else
 	    {
 	        _myRigidBody.isKinematic = false;
 	    }
 
-    }
+
+	}
 
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Ladder")
         {
-            _canClimb = true;
+            _canClimb = true;       
+            // require Ground Collider 
             //_anim.SetBool("Climb", true);
         }
     }
@@ -47,7 +53,8 @@ public class CharacterTriggers : MonoBehaviour
         if (collider.gameObject.tag == "Ladder")
         {
             _canClimb = false;
-           // _anim.SetBool("Climb", false);
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.Find("Platforms").GetComponent<Collider2D>(), true);
+            // _anim.SetBool("Climb", false);
         }
     }
 }
