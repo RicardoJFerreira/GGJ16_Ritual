@@ -11,8 +11,9 @@ public class CharacterTriggers : MonoBehaviour
 	private bool _isTouchingItem = false;
 	public bool _isTouchingCalderon = false;
 	ItemCollectionScript itemCollection;
+    public Animator _anim;
 
-	public GameObject _pressEObject;
+    public GameObject _pressEObject;
 	GameObject _touchingItem;
 
 
@@ -20,6 +21,7 @@ public class CharacterTriggers : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        _anim = GetComponent<Animator>();
         _myRigidBody = GetComponent<Rigidbody2D>();
 		itemCollection = GetComponent<ItemCollectionScript> ();
     }
@@ -29,13 +31,15 @@ public class CharacterTriggers : MonoBehaviour
         float h = CrossPlatformInputManager.GetAxis("Vertical");
         if (h != 0 && _canClimb == true)
         {
+            _anim.SetBool("isClimb", true);
             int direction = h > 0 ? 1 : -1;
 	        _myRigidBody.isKinematic = true;
            // Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.Find("Platforms").GetComponent<Collider2D>(), true);
             transform.position += new Vector3(0, Time.deltaTime * direction * ladder_MaxSpeed, 0 ); 
 	    }else if (h == 0 && _canClimb)
 	    {
-           // Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.Find("Platforms").GetComponent<Collider2D>(), true);
+            _anim.SetBool("isClimb", false);
+            // Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.Find("Platforms").GetComponent<Collider2D>(), true);
             _myRigidBody.isKinematic = true;
 	    }
 	    else
@@ -81,9 +85,10 @@ public class CharacterTriggers : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
 		if (collider.gameObject.tag == "Ladder") {
-			_canClimb = true;       
+           // _anim.SetBool("Ground", false);
+            _canClimb = true;       
 			// require Ground Collider 
-			//_anim.SetBool("Climb", true);
+			_anim.SetBool("Climb", true);
 		} else if (collider.gameObject.tag == "Item") {
 			_isTouchingItem = true;
 			_touchingItem = collider.gameObject;
@@ -98,7 +103,7 @@ public class CharacterTriggers : MonoBehaviour
 		if (collider.gameObject.tag == "Ladder") {
 			_canClimb = false;
 			Physics2D.IgnoreCollision (GetComponent<Collider2D> (), GameObject.Find ("Platforms").GetComponent<Collider2D> (), true);
-			// _anim.SetBool("Climb", false);
+		    _anim.SetBool("Climb", false);
 		} else if (collider.gameObject.tag == "Item") {
 			_isTouchingItem = false;
 			_touchingItem = null;
