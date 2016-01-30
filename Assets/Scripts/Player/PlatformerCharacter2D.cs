@@ -12,16 +12,18 @@ namespace UnityStandardAssets._2D
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
-        const float k_GroundedRadius = 0.2f; // Radius of the overlap circle to determine if grounded
+        const float k_GroundedRadius = 5f; // Radius of the overlap circle to determine if grounded
         private bool m_Grounded;            // Whether or not the player is grounded.
         private Transform m_CeilingCheck;   // A position marking where to check for ceilings
         const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        private GameObject batGameObject; 
 
         private void Awake()
         {
+            batGameObject = GameObject.Find("Bat");
             // Setting up references.
             m_GroundCheck = transform.Find("GroundCheck");
             m_CeilingCheck = transform.Find("CeilingCheck");
@@ -109,6 +111,16 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+
+            // Switch animations acording to player
+            FlipAnim();
+        }
+
+        private void FlipAnim()
+        {
+           var batJoint = batGameObject.GetComponent<RelativeJoint2D>();
+            batJoint.linearOffset = new Vector2(batJoint.linearOffset.x * -1, batJoint.linearOffset.y);
+        
         }
     }
 }

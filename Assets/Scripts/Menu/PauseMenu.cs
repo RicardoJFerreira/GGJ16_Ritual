@@ -39,7 +39,7 @@ public class PauseMenu : MonoBehaviour {
 
 // Methods for onClick()
 
-public void StartScene()
+    public void StartScene()
     {
         Application.LoadLevel("level_1");
     }
