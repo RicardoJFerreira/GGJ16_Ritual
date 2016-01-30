@@ -4,11 +4,11 @@ using System.Collections;
 public class ResizeSpriteToScreen : MonoBehaviour
 {
 
-    private SpriteRenderer sr;
+    private SpriteRenderer _sr;
 
     // Use this for initialization
     void Start () {
-    SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        _sr = GetComponent<SpriteRenderer>();
 
     }
 
@@ -20,12 +20,12 @@ public class ResizeSpriteToScreen : MonoBehaviour
 
     void Resize()
     {
-        if (sr == null) return;
+        if (_sr == null) return;
 
         transform.localScale = new Vector3(1, 1, 1);
 
-        float width = sr.sprite.bounds.size.x;
-        float height = sr.sprite.bounds.size.y;
+        float width = _sr.sprite.bounds.size.x;
+        float height = _sr.sprite.bounds.size.y;
 
 
         float worldScreenHeight = Camera.main.orthographicSize * 2f;
