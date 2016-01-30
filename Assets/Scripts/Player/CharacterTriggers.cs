@@ -8,6 +8,10 @@ public class CharacterTriggers : MonoBehaviour
     public float ladder_MaxSpeed = 150f;
     private Rigidbody2D _myRigidBody;
     private bool _canClimb = false;
+	private bool _isTouchingItem = false;
+
+	public GameObject _pressEObject;
+	GameObject _touchingItem;
 
     // Use this for initialization
     void Start ()
@@ -35,17 +39,27 @@ public class CharacterTriggers : MonoBehaviour
 	        _myRigidBody.isKinematic = false;
 	    }
 
+		if (_isTouchingItem) {
+			_pressEObject.SetActive (true);
+			_pressEObject.transform.position = _touchingItem.transform.position;
+		} else {
+			_pressEObject.SetActive (false);
+		}
+
 
 	}
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Ladder")
-        {
-            _canClimb = true;       
-            // require Ground Collider 
-            //_anim.SetBool("Climb", true);
-        }
+		if (collider.gameObject.tag == "Ladder") {
+			_canClimb = true;       
+			// require Ground Collider 
+			//_anim.SetBool("Climb", true);
+		} else if (collider.gameObject.tag == "Item") {
+			_isTouchingItem = true;
+			_touchingItem = collider.gameObject;
+
+		}
     }
 
     void OnTriggerExit2D(Collider2D collider)
@@ -56,5 +70,9 @@ public class CharacterTriggers : MonoBehaviour
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameObject.Find("Platforms").GetComponent<Collider2D>(), true);
             // _anim.SetBool("Climb", false);
         }
+		else if (collider.gameObject.tag == "Item") {
+			_isTouchingItem = false;
+			_touchingItem = null;
+		}
     }
 }
