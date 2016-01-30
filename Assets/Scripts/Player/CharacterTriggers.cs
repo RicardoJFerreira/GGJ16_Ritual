@@ -9,15 +9,18 @@ public class CharacterTriggers : MonoBehaviour
     private Rigidbody2D _myRigidBody;
     private bool _canClimb = false;
 	private bool _isTouchingItem = false;
+	ItemCollectionScript itemCollection;
 
 	public GameObject _pressEObject;
 	GameObject _touchingItem;
+
+
 
     // Use this for initialization
     void Start ()
     {
         _myRigidBody = GetComponent<Rigidbody2D>();
-
+		itemCollection = GetComponent<ItemCollectionScript> ();
     }
 	
 	// Update is called once per frame
@@ -39,9 +42,19 @@ public class CharacterTriggers : MonoBehaviour
 	        _myRigidBody.isKinematic = false;
 	    }
 
-		if (_isTouchingItem) {
+		if (itemCollection.CanAddItem() && _isTouchingItem) {
 			_pressEObject.SetActive (true);
 			_pressEObject.transform.position = _touchingItem.transform.position;
+
+			if (Input.GetButton ("Grab")) 
+			{
+				_touchingItem.SetActive (false);
+				itemCollection.AddItem (_touchingItem);
+				_touchingItem = null;
+				_isTouchingItem = false;
+				_pressEObject.SetActive (false);
+			}
+
 		} else {
 			_pressEObject.SetActive (false);
 		}
