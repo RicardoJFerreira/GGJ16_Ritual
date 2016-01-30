@@ -36,8 +36,21 @@ public class ItemCollectionScript : MonoBehaviour {
 		}
 	}
 
+	public void UseItem(int item){
+		if (CanUseItem(item)) {
+			//put the item on the calderon
+			items [item] = null;
+			updateItemCollectionDisplay ();
+
+		}
+	}
+
 	public bool CanAddItem(){
 		return itemCount < 4;
+	}
+
+	public bool CanUseItem(int key){
+		return ( items [key] != null);
 	}
 
 	public void updateItemCollectionDisplay(){
