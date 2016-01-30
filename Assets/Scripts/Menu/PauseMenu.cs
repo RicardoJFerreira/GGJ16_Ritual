@@ -34,8 +34,6 @@ public class PauseMenu : MonoBehaviour {
             gameObject.GetComponentInChildren<Canvas>().enabled = true;
             Time.timeScale = 0f;
         }
-
-        Debug.Log("GAMEMANAGER:: TimeScale: " + Time.timeScale);
     }
 
 
