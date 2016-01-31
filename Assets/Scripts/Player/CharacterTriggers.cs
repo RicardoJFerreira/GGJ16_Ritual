@@ -8,7 +8,7 @@ public class CharacterTriggers : MonoBehaviour
     public float ladder_MaxSpeed = 150f;
     private Rigidbody2D _myRigidBody;
     private bool _canClimb = false;
-	private bool _isTouchingItem = false;
+	public bool _isTouchingItem = false;
 	public bool _isTouchingCalderon = false;
 	ItemCollectionScript itemCollection;
     public Animator _anim;
