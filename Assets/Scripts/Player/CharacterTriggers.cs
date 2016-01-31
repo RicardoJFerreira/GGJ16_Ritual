@@ -12,16 +12,27 @@ public class CharacterTriggers : MonoBehaviour
 	public bool _isTouchingCalderon = false;
 	ItemCollectionScript itemCollection;
     public Animator _anim;
+    private bool animSkull = false;
 
     public GameObject _pressEObject;
 	GameObject _touchingItem;
 
+
+    //skull anim
+    private float timePassed = 0f;
+    // Skull Tracking variables
+    private Vector3 skullPositionTarget;
+    private Vector3 skullRotationTarget;
+    private Transform skull;
 
 
 
     // Use this for initialization
     void Start ()
     {
+        skull = GameObject.Find("Skull").GetComponent<Transform>();
+        skullPositionTarget = new Vector3(-515, -86, 0);
+        skullRotationTarget = new Vector3(0, 0, -35);
         _anim = GetComponent<Animator>();
         _myRigidBody = GetComponent<Rigidbody2D>();
 		itemCollection = GetComponent<ItemCollectionScript> ();
@@ -54,12 +65,17 @@ public class CharacterTriggers : MonoBehaviour
 
 			if (Input.GetButton ("Grab")) 
 			{
-				_touchingItem.SetActive (false);
+                if (_touchingItem.name == "Foot")
+                {
+                    animSkull = true;
+                }
+                _touchingItem.SetActive (false);
 				itemCollection.AddItem (_touchingItem);
 				_touchingItem = null;
 				_isTouchingItem = false;
 				_pressEObject.SetActive (false);
-			}
+            
+            }
 
 		} else {
 			_pressEObject.SetActive (false);
@@ -78,6 +94,8 @@ public class CharacterTriggers : MonoBehaviour
 			}
 		}
 
+	    if (animSkull)
+	        SkullAnimation();
 
 
 
@@ -99,6 +117,17 @@ public class CharacterTriggers : MonoBehaviour
 		}
     }
 
+    void SkullAnimation()
+    {
+
+        if (skullPositionTarget.y == skull.transform.position.y)
+            return;
+        timePassed = Mathf.Min(timePassed, 4f);
+        skull.transform.position = skull.transform.position + (skullPositionTarget - skull.transform.position) * (timePassed / 4f);
+        skull.transform.Rotate(skullRotationTarget, Time.deltaTime * 18f);
+        timePassed += Time.deltaTime;
+
+    }
     void OnTriggerExit2D(Collider2D collider)
     {
 		if (collider.gameObject.tag == "Ladder") {
