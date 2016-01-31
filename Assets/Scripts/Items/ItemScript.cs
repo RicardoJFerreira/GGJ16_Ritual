@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ItemScript : MonoBehaviour {
 
 	public int id;
+	public bool evil;
 	bool goingToCalderon;
 	bool dropping;
 	bool collidingWithCalderon;
@@ -41,9 +42,9 @@ public class ItemScript : MonoBehaviour {
 		}
 		if (transform.position == positionTarget) {
 			dropping = true;
-			gameObject.GetComponent<Rigidbody2D> ().gravityScale = 40;
 		    gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-
+			gameObject.GetComponent<Rigidbody2D> ().gravityScale = 40;
+			gameObject.GetComponent<Rigidbody2D> ().WakeUp ();
             gameObject.GetComponent<CircleCollider2D> ().enabled = true;
 			gameObject.GetComponent<CircleCollider2D> ().radius = 22.0f;
 		}

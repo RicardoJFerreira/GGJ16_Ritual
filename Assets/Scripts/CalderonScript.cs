@@ -13,7 +13,23 @@ public class CalderonScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (itemCount == 4) {
+			bool good = true;
+			bool evil = true;
+			for (int i = 0; i < 4; i++) {
+				bool itemEvil = items [i].GetComponent<ItemScript> ().evil;
+				good = good && !itemEvil;
+				evil = evil && itemEvil;
+			}
+
+			if (evil) {
+				print ("AllEvil");
+			} else if (good) {
+				print ("AllGood");
+			} else {
+				print ("Mixed");
+			}
+		}
 	}
 
 	public bool CanAddItem(){
