@@ -36,7 +36,9 @@ public class ItemScript : MonoBehaviour {
 		if (transform.position == positionTarget) {
 			dropping = true;
 			gameObject.GetComponent<Rigidbody2D> ().gravityScale = 40;
-			gameObject.GetComponent<CircleCollider2D> ().enabled = true;
+		    gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+
+            gameObject.GetComponent<CircleCollider2D> ().enabled = true;
 			gameObject.GetComponent<CircleCollider2D> ().radius = 22.0f;
 		}
 		if (collidingWithCalderon && dropping) {
