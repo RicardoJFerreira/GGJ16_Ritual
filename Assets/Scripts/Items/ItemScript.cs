@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ItemScript : MonoBehaviour {
 
@@ -14,6 +15,7 @@ public class ItemScript : MonoBehaviour {
 
 	public Vector3 positionTarget;
 	public Vector3 originalPosition;
+
 
 	// Use this for initialization
 	void Start ()
