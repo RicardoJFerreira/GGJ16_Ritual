@@ -71,6 +71,7 @@ public class ItemCollectionScript : MonoBehaviour {
 				items [i].transform.position = new Vector3 (slotsSprite.bounds.min.x + value + (slotsSprite.bounds.extents.x/4) + (slotsSprite.bounds.extents.x / 2) * i,slotsSprite.bounds.center.y,-1);
 				items [i].GetComponent<CircleCollider2D> ().enabled = false;
 				items [i].SetActive (true);
+				items [i].transform.SetParent (null);
 			}
 		}
 	}
