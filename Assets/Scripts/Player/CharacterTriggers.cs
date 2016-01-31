@@ -16,6 +16,8 @@ public class CharacterTriggers : MonoBehaviour
     public GameObject _pressEObject;
 	GameObject _touchingItem;
 
+	public GameObject _pressNumObject;
+	bool canShowNumObject;
 
 
 
@@ -25,6 +27,7 @@ public class CharacterTriggers : MonoBehaviour
         _anim = GetComponent<Animator>();
         _myRigidBody = GetComponent<Rigidbody2D>();
 		itemCollection = GetComponent<ItemCollectionScript> ();
+		canShowNumObject = true;
     }
 	
 	// Update is called once per frame
@@ -67,15 +70,28 @@ public class CharacterTriggers : MonoBehaviour
 
 		if (_isTouchingCalderon) {
 
-			if (Input.GetButton ("UseItem1") && itemCollection.CanUseItem(0)) {
-				itemCollection.UseItem (0);
-			} else if (Input.GetButton ("UseItem2") && itemCollection.CanUseItem(1)) {
-				itemCollection.UseItem (1);
-			} else if (Input.GetButton ("UseItem3") && itemCollection.CanUseItem(2)) {
-				itemCollection.UseItem (2);
-			}else if(Input.GetButton ("UseItem4") && itemCollection.CanUseItem(3)) {
-				itemCollection.UseItem (3);
+			if (itemCollection.HasItems () && canShowNumObject) {
+				_pressNumObject.SetActive (true);
+			} else {
+				_pressNumObject.SetActive (false);
 			}
+
+
+			if (Input.GetButton ("UseItem1") && itemCollection.CanUseItem (0)) {
+				itemCollection.UseItem (0);
+				canShowNumObject = false;
+			} else if (Input.GetButton ("UseItem2") && itemCollection.CanUseItem (1)) {
+				itemCollection.UseItem (1);
+				canShowNumObject = false;
+			} else if (Input.GetButton ("UseItem3") && itemCollection.CanUseItem (2)) {
+				itemCollection.UseItem (2);
+				canShowNumObject = false;
+			} else if (Input.GetButton ("UseItem4") && itemCollection.CanUseItem (3)) {
+				itemCollection.UseItem (3);
+				canShowNumObject = false;
+			}
+		} else {
+			_pressNumObject.SetActive (false);
 		}
 
 
@@ -96,6 +112,7 @@ public class CharacterTriggers : MonoBehaviour
 
 		}else if (collider.gameObject.tag == "Calderon") {
 			_isTouchingCalderon = true;
+			canShowNumObject = true;
 		}
     }
 

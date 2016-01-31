@@ -67,10 +67,15 @@ public class ItemCollectionScript : MonoBehaviour {
 	public void updateItemCollectionDisplay(){
 		for (int i = 0; i < 4; i++) {
 			if (items [i] != null) {
-				items [i].transform.position = new Vector3 (slotsSprite.bounds.min.x + (slotsSprite.bounds.extents.x/4) + (slotsSprite.bounds.extents.x / 2) * i,slotsSprite.bounds.center.y,items[i].transform.position.z);
+				float value = (i==0?10: (i==1? 5 : (i==2? -5 : -10)) );
+				items [i].transform.position = new Vector3 (slotsSprite.bounds.min.x + value + (slotsSprite.bounds.extents.x/4) + (slotsSprite.bounds.extents.x / 2) * i,slotsSprite.bounds.center.y,-1);
 				items [i].GetComponent<CircleCollider2D> ().enabled = false;
 				items [i].SetActive (true);
 			}
 		}
+	}
+
+	public bool HasItems(){
+		return itemCount > 0;
 	}
 }

@@ -19,7 +19,7 @@ public class PressEObjectScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float value = Mathf.Clamp(((goingUp ? 1 : -1) * animationSpeed * Time.deltaTime) + transform.localPosition.y, downPosition.y,upPosition.y);
-		transform.localPosition = new Vector3 (0,value,0);
+		transform.localPosition = new Vector3 (0,value,-1);
 
 		if (transform.localPosition.y == downPosition.y || transform.localPosition.y == upPosition.y) {
 			goingUp = !goingUp;
