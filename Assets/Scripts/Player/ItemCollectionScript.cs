@@ -45,9 +45,11 @@ public class ItemCollectionScript : MonoBehaviour {
 	public void UseItem(int item){
 		if (CanUseItem(item)) {
 			//put the item on the calderon
+
 			calderon.AddItem(items[item]);
 			items[item].transform.position = gameObject.transform.position;
-			items[item].SetActive(false);
+			items [item].GetComponent<ItemScript> ().GoToCalderon ();
+			//items[item].SetActive(false);
 			items [item] = null;
 			updateItemCollectionDisplay ();
 			itemCount--;
