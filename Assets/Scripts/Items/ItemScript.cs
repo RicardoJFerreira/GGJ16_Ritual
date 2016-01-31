@@ -9,13 +9,17 @@ public class ItemScript : MonoBehaviour {
 	bool collidingWithCalderon;
 	float timePassed;
 	float animationTime;
+    public GameObject splashObject;
+    private Animator _splash;
 
 	public Vector3 positionTarget;
 	public Vector3 originalPosition;
 
 	// Use this for initialization
-	void Start () {
-		positionTarget = new Vector3 (0,-85,0);
+	void Start ()
+	{
+	    _splash= splashObject.GetComponent<Animator>();
+        positionTarget = new Vector3 (0,-85,0);
 		goingToCalderon = false;
 		animationTime = 1.0f;
 		dropping = false;
@@ -43,6 +47,7 @@ public class ItemScript : MonoBehaviour {
 		}
 		if (collidingWithCalderon && dropping) {
 			gameObject.SetActive (false);
+		    _splash.Play("splash");
 		}
 	}
 

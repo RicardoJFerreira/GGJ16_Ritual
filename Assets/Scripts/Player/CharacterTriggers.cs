@@ -26,6 +26,7 @@ public class CharacterTriggers : MonoBehaviour
     private Vector3 skullPositionTarget;
     private Vector3 skullRotationTarget;
     private Transform skull;
+    
 
 
 
