@@ -51,7 +51,7 @@ public class ItemScript : MonoBehaviour {
 		if (collidingWithCalderon && dropping) {
 			gameObject.SetActive (false);
             _splash.SetBool("effect",evil);
-		    _splash.Play("splash");
+            _splash.Play("splash");
 		}
 	}
 
