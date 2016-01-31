@@ -86,7 +86,7 @@ public class CalderonScript : MonoBehaviour {
 		        animationPlayed = true;
 		    }
 
-            if(animationPlayed &&  (Time.time >= (timePotionShowed + timeToShowMenu)))
+            if(_evil_chosen && animationPlayed &&  (Time.time >= (timePotionShowed + timeToShowMenu)))
 		    {
                 finishGameMenu.SetActive(true);
 		    }
