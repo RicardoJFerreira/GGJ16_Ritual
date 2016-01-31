@@ -9,12 +9,18 @@ public class ItemCollectionScript : MonoBehaviour {
 	public GameObject slots;
 	private SpriteRenderer slotsSprite;
 
+	public GameObject calderonObject;
+	CalderonScript calderon;
+
+
 	// Use this for initialization
 	void Start () {
 		for (int i = 0; i < 4; i++) {
 			items [i] = null;
 		}
 		slotsSprite = slots.GetComponentInChildren<SpriteRenderer> ();
+		calderon = calderonObject.GetComponent<CalderonScript> ();
+
 	}
 	
 	// Update is called once per frame
@@ -39,9 +45,12 @@ public class ItemCollectionScript : MonoBehaviour {
 	public void UseItem(int item){
 		if (CanUseItem(item)) {
 			//put the item on the calderon
+			calderon.AddItem(items[item]);
+			items[item].transform.position = gameObject.transform.position;
+			items[item].SetActive(false);
 			items [item] = null;
 			updateItemCollectionDisplay ();
-
+			itemCount--;
 		}
 	}
 
@@ -50,13 +59,14 @@ public class ItemCollectionScript : MonoBehaviour {
 	}
 
 	public bool CanUseItem(int key){
-		return ( items [key] != null);
+		return (items [key] != null) && calderon.CanAddItem ();
 	}
 
 	public void updateItemCollectionDisplay(){
 		for (int i = 0; i < 4; i++) {
 			if (items [i] != null) {
 				items [i].transform.position = new Vector3 (slotsSprite.bounds.min.x + (slotsSprite.bounds.extents.x/4) + (slotsSprite.bounds.extents.x / 2) * i,slotsSprite.bounds.center.y,items[i].transform.position.z);
+				items [i].GetComponent<CircleCollider2D> ().enabled = false;
 				items [i].SetActive (true);
 			}
 		}
