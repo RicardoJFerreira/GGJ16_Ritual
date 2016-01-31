@@ -4,6 +4,7 @@ using System.Collections;
 public class PauseMenu : MonoBehaviour {
 
     public bool isPaused = false; // On pause or not
+    public bool isBlocked = false;
 
     void Start()
     {
@@ -13,12 +14,14 @@ public class PauseMenu : MonoBehaviour {
 
     void Update()
     {
-        // No longer paused
-        if (Input.GetButtonDown("Cancel"))
-        {
-            isPaused = !isPaused;
-        }
-        TogglePauseMenu();
+    
+            // No longer paused
+            if (Input.GetButtonDown("Cancel"))
+            {
+                isPaused = !isPaused;
+            }
+            TogglePauseMenu();
+
     }
 
     public void TogglePauseMenu()
