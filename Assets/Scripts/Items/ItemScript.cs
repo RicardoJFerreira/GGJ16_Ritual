@@ -12,7 +12,7 @@ public class ItemScript : MonoBehaviour {
 	float timePassed;
 	float animationTime;
     public GameObject splashObject;
-    private Animator _splash;
+    public Animator _splash;
 
 	public Vector3 positionTarget;
 	public Vector3 originalPosition;
@@ -50,6 +50,7 @@ public class ItemScript : MonoBehaviour {
 		}
 		if (collidingWithCalderon && dropping) {
 			gameObject.SetActive (false);
+            _splash.SetBool("effect",evil);
 		    _splash.Play("splash");
 		}
 	}
