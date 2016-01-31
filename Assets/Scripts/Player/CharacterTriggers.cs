@@ -18,6 +18,7 @@ public class CharacterTriggers : MonoBehaviour
 
 
 
+
     // Use this for initialization
     void Start ()
     {
