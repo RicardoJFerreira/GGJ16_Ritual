@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/PauseMenuContinue.prefab.meta
 guid: ea2dbe3a100ce094cbc207851e975e88
 timeCreated: 1454199872
+=======
+guid: 191ee4caf6818df4a89b1046681d29de
+timeCreated: 1454170127
+>>>>>>> bee5c298af1d3c02ddc663fff90ec533d6e92d1f:Assets/Prefabs/PauseMenu.prefab.meta
 licenseType: Free
 NativeFormatImporter:
   userData: 
